@@ -203,12 +203,15 @@ export default function ProductDetailPage() {
           {/* Tab Content */}
           <div className="bg-white p-4 rounded-b-lg border border-t-0 border-gray-300 min-h-[200px]">
             {activeTab === "description" && (
-              <ul className="list-disc pl-5 space-y-2 text-gray-700 text-xl">
-                <li>Tasty & Healthy Option: Enjoy crispy, salty potato chips made with high-quality oil and real cheese flavor.</li>
-                <li>User-Friendly Interface: Simple quantity selector, flavor indicators, and clear pricing for a smooth shopping experience.</li>
-                <li>Attractive Product Display: Eye-catching product image and rating system to build trust and appeal to customers.</li>
-                <li>Quick Checkout Options: Clear, standout buttons for immediate purchase or easy checkout, improving conversion rates.</li>
-              </ul>
+              <div className="text-gray-700 text-xl">
+                <p className="mb-4">{product.description}</p>
+                {/* <ul className="list-disc pl-5 space-y-2">
+                  <li>Tasty & Healthy Option: Enjoy crispy, salty potato chips made with high-quality oil and real cheese flavor.</li>
+                  <li>User-Friendly Interface: Simple quantity selector, flavor indicators, and clear pricing for a smooth shopping experience.</li>
+                  <li>Attractive Product Display: Eye-catching product image and rating system to build trust and appeal to customers.</li>
+                  <li>Quick Checkout Options: Clear, standout buttons for immediate purchase or easy checkout, improving conversion rates.</li>
+                </ul> */}
+              </div>
             )}
             {activeTab === "nutrition" && (
               <ul className="space-y-2 text-gray-700">

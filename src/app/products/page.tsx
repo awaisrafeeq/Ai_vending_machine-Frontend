@@ -18,6 +18,7 @@ export default function ProductsPage() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showNoProductsModal, setShowNoProductsModal] = useState(false);
@@ -28,11 +29,12 @@ export default function ProductsPage() {
     const loadProducts = async () => {
       try {
         setError(null);
-        const allProducts = await fetchProducts();
+        const fetchedProducts = await fetchProducts();
+        setAllProducts(fetchedProducts);
         // Filter products by category if category is provided
         const filteredProducts = category 
-          ? allProducts.filter(product => product.category === category)
-          : allProducts;
+          ? fetchedProducts.filter(product => product.category === category)
+          : fetchedProducts;
         setProducts(filteredProducts);
         
         // Show no products modal if no products found
@@ -90,6 +92,10 @@ export default function ProductsPage() {
 
   const handleCancelAddToCart = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleSeeAllProducts = () => {
+    setProducts(allProducts);
   };
 
   if (loading) {
@@ -193,7 +199,21 @@ export default function ProductsPage() {
               </button>
             </div>
           ))}
+           <br />
+          {category && products.length < allProducts.length && (
+          <div className="w-full flex justify-center mt-8 mb-4">
+            <button
+              onClick={handleSeeAllProducts}
+              className="px-8 py-4 h-20 bg-gradient-to-b from-sky-500 to-cyan-950 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-cyan-800 transition duration-300 text-xl"
+            >
+              See All Products ({allProducts.length})
+            </button>
+          </div>
+        )}
         </div>
+
+        {/* See All Products Button */}
+
 
         {/* Order Summary Sidebar */}
         <aside className="w-[380px] p-6 bg-gray-100 rounded-lg shadow-md sticky top-54 h-fit max-h-[835px] overflow-y-auto flex flex-col">

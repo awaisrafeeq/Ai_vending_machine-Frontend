@@ -46,16 +46,30 @@ export async function fetchProducts(): Promise<Product[]> {
     const data = await response.json();
     console.log('Successfully fetched products from API');
     
-    // Map products to use local images
-    const cleanedData = data.map((product: Product) => ({
-      ...product,
-      // Comment out the original images array
-      // images: product.images.map((img: string) => {
-      //   return img.replace(/^'\["|"\]'$/g, '').replace(/^"|"$/g, '');
-      // }),
-      // Use local images instead
-      images: [`/images/products/Lays (${Math.floor(Math.random() * 9) + 1}).png`]
-    }));
+    // Map products to use local images and parse JSON strings
+    const cleanedData = data.map((product: any) => {
+      // Helper function to safely parse JSON strings
+      const safeParse = (value: any, fallback: any = []) => {
+        if (typeof value === 'string') {
+          try {
+            return JSON.parse(value);
+          } catch (error) {
+            console.warn('Failed to parse JSON string:', value, error);
+            return fallback;
+          }
+        }
+        return value;
+      };
+
+      return {
+        ...product,
+        // Parse JSON strings for arrays
+        flavor: safeParse(product.flavor, [{ color: 'bg-gray-500', label: 'Unknown' }]),
+        ingredients: safeParse(product.ingredients, ['Unknown ingredients']),
+        // Use local images instead of the malformed JSON string
+        images: [`/images/products/Lays (${Math.floor(Math.random() * 9) + 1}).png`]
+      };
+    });
 
     return cleanedData;
   } catch (error) {
