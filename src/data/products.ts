@@ -11,6 +11,20 @@ export interface Product {
   category?: string;
 }
 
+// Raw API response interface (before parsing)
+interface RawProduct {
+  id: number;
+  name: string;
+  price: number;
+  images: string | string[];
+  rating: number;
+  description: string;
+  flavor: string | { color: string; label: string }[];
+  stock: number;
+  ingredients: string | string[];
+  category?: string;
+}
+
 export async function fetchProducts(): Promise<Product[]> {
   try {
     console.log('Attempting to fetch products from API...');
@@ -47,9 +61,9 @@ export async function fetchProducts(): Promise<Product[]> {
     console.log('Successfully fetched products from API');
     
     // Map products to use local images and parse JSON strings
-    const cleanedData = data.map((product: any) => {
+    const cleanedData = data.map((product: RawProduct): Product => {
       // Helper function to safely parse JSON strings
-      const safeParse = (value: any, fallback: any = []) => {
+      const safeParse = <T>(value: string | T, fallback: T): T => {
         if (typeof value === 'string') {
           try {
             return JSON.parse(value);
