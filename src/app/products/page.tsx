@@ -176,7 +176,7 @@ export default function ProductsPage() {
                 alt={product.name}
                 width={200}
                 height={200}
-                className="mx-auto mb-2 w-full h-auto rounded-lg"
+                className="mx-auto mb-2 w-full h-80 rounded-lg"
               />
               <div className={`${isButtonDisabled ? 'pointer-events-none' : ''}`}>
                 <Link href={`/product-detail/${product.id}`} className="font-bold text-2xl mb-2 mx-3 flex gap-1 items-center">

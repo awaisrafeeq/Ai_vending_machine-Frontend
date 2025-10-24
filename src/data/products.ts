@@ -25,6 +25,17 @@ interface RawProduct {
   category?: string;
 }
 
+// Function to generate random colors
+function generateRandomColor(): string {
+  const colors = [
+    'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 
+    'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500',
+    'bg-orange-500', 'bg-cyan-500', 'bg-lime-500', 'bg-amber-500',
+    'bg-emerald-500', 'bg-violet-500', 'bg-rose-500', 'bg-sky-500'
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
 export async function fetchProducts(): Promise<Product[]> {
   try {
     console.log('Attempting to fetch products from API...');
@@ -75,13 +86,20 @@ export async function fetchProducts(): Promise<Product[]> {
         return value;
       };
 
+      // Parse flavors and generate random colors if not provided
+      const parsedFlavors = safeParse(product.flavor, [{ color: generateRandomColor(), label: 'Unknown' }]);
+      const flavorsWithRandomColors = parsedFlavors.map(flavor => ({
+        ...flavor,
+        color: flavor.color || generateRandomColor()
+      }));
+
       return {
         ...product,
-        // Parse JSON strings for arrays
-        flavor: safeParse(product.flavor, [{ color: 'bg-gray-500', label: 'Unknown' }]),
+        // Parse JSON strings for arrays with random colors
+        flavor: flavorsWithRandomColors,
         ingredients: safeParse(product.ingredients, ['Unknown ingredients']),
-        // Use local images instead of the malformed JSON string
-        images: [`/images/products/Lays (${Math.floor(Math.random() * 9) + 1}).png`]
+        // Parse and use the actual product images from the API
+        images: safeParse(product.images, ['/images/products/Lays (1).png'])
       };
     });
 
