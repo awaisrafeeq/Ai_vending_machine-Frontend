@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaArrowLeft } from "react-icons/fa";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 
@@ -14,12 +14,20 @@ export default function CheckoutPage() {
     return (
         <div className="min-h-screen bg-white font-sans">
             <div className="flex items-center justify-between w-full sticky top-0 px-10 py-8 bg-gray-200 mb-8">
+                <button
+                    onClick={() => router.push('/products')}
+                    className="flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-sky-500 to-cyan-950 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-cyan-800 transition duration-300 text-xl"
+                >
+                    <FaArrowLeft className="text-2xl" />
+                    Go Back
+                </button>
                 <Image
                     src="/images/logo.png"
                     alt="Realtime Nutrition Logo"
                     width={410}
                     height={110}
                 />
+                <div className="w-[180px]"></div>
             </div>
             <div className="flex max-w-[1900px] w-full px-12 pb-12 gap-10">
                 {/* Left side - Selected Products */}

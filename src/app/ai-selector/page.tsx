@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FaMicrophoneAlt, FaCamera } from 'react-icons/fa';
+import { FaMicrophoneAlt, FaCamera, FaArrowLeft } from 'react-icons/fa';
 import { ImCross } from "react-icons/im";
 
 interface ApiResponse {
@@ -343,12 +343,20 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-50" style={{ width: '1920px', height: '1080px' }}>
       <div className="flex items-center justify-between w-full sticky top-0 px-10 py-8 bg-gray-200">
+        <button
+          onClick={() => router.push('/')}
+          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-sky-500 to-cyan-950 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-cyan-800 transition duration-300 text-xl"
+        >
+          <FaArrowLeft className="text-2xl" />
+          Go Back
+        </button>
         <Image
           src="/images/logo.png"
           alt="Realtime Nutrition Logo"
           width={450}
           height={140}
         />
+        <div className="w-[180px]"></div>
       </div>
 
       <div className="flex justify-center bg-gray-50 py-20" style={{ width: '1920px', height: '1080px' }}>

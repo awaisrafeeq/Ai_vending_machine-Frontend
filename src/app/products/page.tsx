@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { FaArrowAltCircleRight, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaArrowAltCircleRight, FaPlus, FaMinus, FaArrowLeft } from 'react-icons/fa';
 import { FaCartPlus } from 'react-icons/fa';
 import { RxOpenInNewWindow } from "react-icons/rx";
 import { Product, fetchProducts } from '@/data/products';
@@ -132,6 +132,13 @@ export default function ProductsPage() {
   return (
     <div className="bg-gray-50" style={{ width: '1905px', minHeight: '100vh' }}>
       <div className="flex items-center justify-between w-full sticky z-100 top-0 px-10 py-8 bg-gray-200">
+        <button
+          onClick={() => router.push('/')}
+          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-sky-500 to-cyan-950 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-cyan-800 transition duration-300 text-xl"
+        >
+          <FaArrowLeft className="text-2xl" />
+          Go Back
+        </button>
         <Image
           src="/images/logo.png"
           alt="Logo"

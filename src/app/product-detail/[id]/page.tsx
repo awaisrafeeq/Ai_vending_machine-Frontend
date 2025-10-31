@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
-import { FaStar, FaCheckCircle, FaMinus, FaPlus, FaArrowAltCircleRight } from "react-icons/fa";
+import { FaStar, FaCheckCircle, FaMinus, FaPlus, FaArrowAltCircleRight, FaArrowLeft } from "react-icons/fa";
 import { Product, fetchProducts } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 
@@ -89,12 +89,20 @@ export default function ProductDetailPage() {
   return (
     <div className="w-full min-h-[1080px] flex flex-col gap-4 font-sans bg-white">
       <div className="flex items-center justify-between w-full sticky top-0 px-10 py-8 bg-gray-200">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-sky-500 to-cyan-950 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-cyan-800 transition duration-300 text-xl"
+        >
+          <FaArrowLeft className="text-2xl" />
+          Go Back
+        </button>
         <Image
           src="/images/logo.png"
           alt="Logo"
           width={410}
           height={110}
         />
+        <div className="w-[180px]"></div>
       </div>
       <div className="flex justify-center gap-30 w-full">
         <div className="flex flex-col gap-3">
